@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import topicService from '../Services/topicService';
+import React, { useState } from 'react'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import topicService from '../Services/topicService'
+import Swal from 'sweetalert2'
 
 const TopicCreate = ({updateTopics}) => {
   const [title, setTitle] = useState('');
@@ -14,24 +15,32 @@ const TopicCreate = ({updateTopics}) => {
         title,
         description,
         creationDate
-      };
+      }
 
       const response = await topicService.createTopic(topicData)
-      alert(JSON.stringify(response.data.message))
+      Swal.fire({
+        title: 'Successful',
+        text: JSON.stringify(response.data.message),
+        icon: 'success',
+      })
       updateTopics(topicData)
 
-      setTitle('');
-      setDescription('');
-      setCreationDate('');
+      setTitle('')
+      setDescription('')
+      setCreationDate('')
     } catch (error) {
-      console.error('Error creating Topic:', error)
+      Swal.fire({
+        title: 'Error',
+        text: 'The topic has not been created, check required fields',
+        icon: 'error',
+      })
     }
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    createNewTopic();
-  };
+    e.preventDefault()
+    createNewTopic()
+  }
 
   return (
     <form onSubmit={handleSubmit}>

@@ -1,8 +1,9 @@
-import React, { useState, useEffect,Fragment } from 'react';
-import TopicIndex from '../Components/TopicIndex';
-import TopicCreate from '../Components/TopicCreate';
-import topicService from '../Services/topicService';
-import NavComponent from '../Components/Nav';
+import React, { useState, useEffect,Fragment } from 'react'
+import TopicIndex from '../Components/TopicIndex'
+import TopicCreate from '../Components/TopicCreate'
+import topicService from '../Services/topicService'
+import NavComponent from '../Components/Nav'
+import Swal from 'sweetalert2'
 
 const TopicContainer = () => {
     const [topics, setTopics] = useState([]);
@@ -14,16 +15,30 @@ const TopicContainer = () => {
           const topics = response.data;
           setTopics(topics);
         } catch (error) {
-          console.error('Error al obtener los temas:', error);
+          Swal.fire({
+            title: 'Error',
+            text: 'Error getting topics'+ error,
+            icon: 'error',
+          })
         }
-      };
+      }
   
-      getTopics();
-    }, [topics]);
+      getTopics()
+    }, [])
   
-    const updateTopics = (newTopic) => {
-      setTopics([...topics, newTopic]);
-    };
+    const updateTopics = async () => {
+      try {
+        const response = await topicService.getTopics();
+        const updatedTopics = response.data;
+        setTopics(updatedTopics);
+      } catch (error) {
+        Swal.fire({
+          title: 'Error',
+          text: 'Error getting topics'+ error,
+          icon: 'error',
+        })
+      }
+    }
   
     return (
       <>
@@ -31,7 +46,7 @@ const TopicContainer = () => {
         <NavComponent brand={'Test_APP'}/>
       </div>
       <div className='container'>
-        <TopicIndex topics={topics} />
+        <TopicIndex topics={topics} updateTopics={updateTopics}/>
       </div>
       <div className='container'>
         <TopicCreate updateTopics={updateTopics} />
