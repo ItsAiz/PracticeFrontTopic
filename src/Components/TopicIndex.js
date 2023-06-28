@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import 'bulma/css/bulma.min.css'
 import { Button, Modal} from 'react-bulma-components'
+import ReactMarkdown from 'react-markdown'
 import topicService from '../Services/topicService'
 import Swal from 'sweetalert2'
 
@@ -96,7 +97,7 @@ const TopicIndex = ({ topics, updateTopics }) => {
         <Modal show={editModalOpen} onClose={() => setEditModalOpen(false)}>
           <Modal.Content>
             <h3>{selectedTopic.title}</h3>
-            <p>{selectedTopic.description}</p>
+            <ReactMarkdown>{selectedTopic.description}</ReactMarkdown>
           </Modal.Content>
         </Modal>
       )}

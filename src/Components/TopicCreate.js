@@ -58,7 +58,7 @@ const TopicCreate = ({updateTopics}) => {
       </div>
       <div className="form-group">
         <label htmlFor="description">Description:</label>
-        <input
+        <textarea
           type="text"
           className="form-control"
           id="description"
