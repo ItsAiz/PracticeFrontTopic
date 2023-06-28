@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import DatePicker from 'react-datepicker'
+import 'bulma/css/bulma.min.css'
 import 'react-datepicker/dist/react-datepicker.css'
 import topicService from '../Services/topicService'
 import Swal from 'sweetalert2'

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Button} from 'react-bulma-components'
-import { Modal} from 'react-bulma-components'
+import 'bulma/css/bulma.min.css'
+import { Button, Modal} from 'react-bulma-components'
 import topicService from '../Services/topicService'
 import Swal from 'sweetalert2'
 
@@ -18,8 +18,9 @@ const TopicIndex = ({ topics, updateTopics }) => {
         text: JSON.stringify(response.data.message),
         icon: 'success',
       })
-      setTopicId('');
+      setTopicId('')
       updateTopics()
+      setEditModalOpen(false)
     } catch (error) {
       Swal.fire({
         title: 'Error',
@@ -38,6 +39,7 @@ const TopicIndex = ({ topics, updateTopics }) => {
   const handleEdit = (topic) => {
     setSelectedTopic(topic)
     setEditModalOpen(true)
+    console.log(editModalOpen)
   }
 
   const handleDelete = (e, topicId) => {
@@ -95,7 +97,6 @@ const TopicIndex = ({ topics, updateTopics }) => {
           <Modal.Content>
             <h3>{selectedTopic.title}</h3>
             <p>{selectedTopic.description}</p>
-            {/* Mostrar otros campos del registro si es necesario */}
           </Modal.Content>
         </Modal>
       )}
