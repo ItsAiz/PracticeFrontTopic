@@ -5,7 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import topicService from '../Services/topicService'
 import Swal from 'sweetalert2'
 
-const TopicCreate = ({updateTopics}) => {
+const TopicCreate = ({updateTopics, isUpdate}) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [creationDate, setCreationDate] = useState('');
@@ -38,9 +38,18 @@ const TopicCreate = ({updateTopics}) => {
     }
   }
 
+  const handleUpdateTopic  = () =>
+  {
+    alert(title)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    createNewTopic()
+    if (isUpdate) {
+      handleUpdateTopic()
+    } else {
+      createNewTopic()
+    }
   }
 
   return (
@@ -80,7 +89,9 @@ const TopicCreate = ({updateTopics}) => {
           
         />
       </div>
-      <button type="submit" className="btn btn-primary col-12">Create Topic</button>
+      <button type="submit" className="btn btn-primary col-12">
+        {isUpdate ? 'Update Topic' : 'Create Topic'}
+      </button>
       <br></br><br></br>
     </form>
   );

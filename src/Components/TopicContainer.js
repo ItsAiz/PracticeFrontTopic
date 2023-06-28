@@ -34,7 +34,7 @@ const TopicContainer = () => {
       } catch (error) {
         Swal.fire({
           title: 'Error',
-          text: 'Error getting topics'+ error,
+          text: 'Error getting topics',
           icon: 'error',
         })
       }

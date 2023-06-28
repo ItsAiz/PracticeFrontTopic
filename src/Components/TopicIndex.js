@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import 'bulma/css/bulma.min.css'
 import { Button, Modal} from 'react-bulma-components'
-import ReactMarkdown from 'react-markdown'
+//import ReactMarkdown from 'react-markdown'
 import topicService from '../Services/topicService'
 import Swal from 'sweetalert2'
+import TopicCreate from './TopicCreate'
 
 
 const TopicIndex = ({ topics, updateTopics }) => {
@@ -96,8 +97,16 @@ const TopicIndex = ({ topics, updateTopics }) => {
       {selectedTopic && (
         <Modal show={editModalOpen} onClose={() => setEditModalOpen(false)}>
           <Modal.Content>
-            <h3>{selectedTopic.title}</h3>
-            <ReactMarkdown>{selectedTopic.description}</ReactMarkdown>
+            <div className='container'>
+              <h3>Id: {selectedTopic._id}</h3>
+              <h3>Title: {selectedTopic.title}</h3><br></br>
+              <h3>Description: {selectedTopic.description}</h3>
+            </div>
+            <TopicCreate updateTopics={updateTopics} isUpdate={true}
+              title={selectedTopic.title}
+              description={selectedTopic.description}
+              creationDate={selectedTopic.creationDate}
+            />
           </Modal.Content>
         </Modal>
       )}
