@@ -41,7 +41,6 @@ const TopicIndex = ({ topics, updateTopics }) => {
   const handleEdit = (topic) => {
     setSelectedTopic(topic)
     setEditModalOpen(true)
-    console.log(editModalOpen)
   }
 
   const handleDelete = (e, topicId) => {
@@ -64,8 +63,8 @@ const TopicIndex = ({ topics, updateTopics }) => {
 
   return (
     <>
-      <table className="table table-striped table-bordered border-dark productsTable">
-        <thead className="table text-center bg-dark" style={{ color: 'white', alignContent: 'center' }}>
+      <table className="table table-striped table-bordered productsTable">
+        <thead className="table text-center bg-black">
           <tr>
             <th>ID</th>
             <th>Title</th>
@@ -97,21 +96,41 @@ const TopicIndex = ({ topics, updateTopics }) => {
       {selectedTopic && (
         <Modal show={editModalOpen} onClose={() => setEditModalOpen(false)}>
           <Modal.Content>
-            <div className='container'>
-              <h3>Id: {selectedTopic._id}</h3>
-              <h3>Title: {selectedTopic.title}</h3><br></br>
-              <h3>Description: {selectedTopic.description}</h3>
+            <div className="modal-container">
+              <table className="table">
+                <tbody>
+                  <tr>
+                    <td>ID:</td>
+                    <td>{selectedTopic._id}</td>
+                  </tr>
+                  <tr>
+                    <td>Title:</td>
+                    <td>{selectedTopic.title}</td>
+                  </tr>
+                  <tr>
+                    <td>Description:</td>
+                    <td>{selectedTopic.description}</td>
+                  </tr>
+                  <tr>
+                    <td>Creation Date:</td>
+                    <td>{selectedTopic.creationDate}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <TopicCreate updateTopics={updateTopics} isUpdate={true}
-              title={selectedTopic.title}
-              description={selectedTopic.description}
-              creationDate={selectedTopic.creationDate}
-            />
+            <div className="modal-container col-12">
+              <TopicCreate
+                updateTopics={updateTopics}
+                isUpdate={true}
+                topicId={selectedTopic._id}
+                onModalClose={() => setEditModalOpen(false)}
+              />
+            </div>
           </Modal.Content>
         </Modal>
       )}
     </>
-  );
-};
+  )
+}
 
 export default TopicIndex;

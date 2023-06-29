@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'bulma/css/bulma.min.css'
 import 'react-datepicker/dist/react-datepicker.css'
 import topicService from '../Services/topicService'
 import Swal from 'sweetalert2'
 
-const TopicCreate = ({updateTopics, isUpdate}) => {
+const TopicCreate = ({updateTopics, isUpdate, topicId, onModalClose}) => {
+  const [id, setId] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [creationDate, setCreationDate] = useState('');
@@ -38,15 +39,44 @@ const TopicCreate = ({updateTopics, isUpdate}) => {
     }
   }
 
-  const handleUpdateTopic  = () =>
-  {
-    alert(title)
+  useEffect(() => {
+    if (topicId) {
+      setId(topicId)
+    }
+  }, [topicId]);
+
+  const updateTopic  = async () =>{
+    try {
+      const topicData = {
+        id,
+        title,
+        description,
+        creationDate
+      }
+      const response = await topicService.updateTopic(topicData)
+      Swal.fire({
+        title: 'Successful',
+        text: JSON.stringify(response.data.message),
+        icon: 'success',
+      })
+      updateTopics(topicData)
+      setId('')
+      if (onModalClose) {
+        onModalClose();
+      }
+    } catch (error) {
+      Swal.fire({
+        title: 'Error',
+        text: 'The topic has not been updated ->' + error,
+        icon: 'error',
+      })
+    }
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     if (isUpdate) {
-      handleUpdateTopic()
+      updateTopic()
     } else {
       createNewTopic()
     }

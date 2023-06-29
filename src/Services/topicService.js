@@ -15,6 +15,13 @@ const topicService = {
   },
   deleteTopic: (topicId) =>{
     return axios.delete(`${API_URL}/deleteTopic/${topicId}`)
+  },
+  updateTopic: (topicData) =>{
+    return axios.patch(`${API_URL}/updateTopic/${topicData.id}`, {
+      title: topicData.title,
+      description: topicData.description,
+      creationDate: topicData.creationDate,
+    })
   }
 };
 
