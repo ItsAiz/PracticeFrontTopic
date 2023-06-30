@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import 'bulma/css/bulma.min.css'
 import { Button, Modal} from 'react-bulma-components'
-//import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from 'react-markdown'
 import topicService from '../Services/topicService'
 import Swal from 'sweetalert2'
 import TopicCreate from './TopicCreate'
@@ -100,20 +100,16 @@ const TopicIndex = ({ topics, updateTopics }) => {
               <table className="table">
                 <tbody>
                   <tr>
-                    <td>ID:</td>
-                    <td>{selectedTopic._id}</td>
-                  </tr>
-                  <tr>
                     <td>Title:</td>
                     <td>{selectedTopic.title}</td>
                   </tr>
                   <tr>
-                    <td>Description:</td>
-                    <td>{selectedTopic.description}</td>
+                    <td>Creation Date:</td>
+                    <td><p>{selectedTopic.creationDate}</p></td>
                   </tr>
                   <tr>
-                    <td>Creation Date:</td>
-                    <td>{selectedTopic.creationDate}</td>
+                    <td>Description:</td>
+                    <td style={{textAlign: 'justify'}}><ReactMarkdown>{selectedTopic.description}</ReactMarkdown></td>
                   </tr>
                 </tbody>
               </table>
