@@ -45,6 +45,7 @@ const TopicContainer = () => {
       <div className='container'>
         <NavComponent brand={'Test_APP'}/>
       </div>
+      <br></br>
       <div className='container'>
         <TopicIndex topics={topics} updateTopics={updateTopics}/>
       </div>

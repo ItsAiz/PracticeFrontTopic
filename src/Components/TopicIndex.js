@@ -5,7 +5,9 @@ import ReactMarkdown from 'react-markdown'
 import topicService from '../Services/topicService'
 import Swal from 'sweetalert2'
 import TopicCreate from './TopicCreate'
-
+import 'datatables.net-dt/css/jquery.dataTables.css';
+import 'datatables.net';
+const $ = require('jquery');
 
 const TopicIndex = ({ topics, updateTopics }) => {
   const [topicId, setTopicId] = useState('')
@@ -31,6 +33,13 @@ const TopicIndex = ({ topics, updateTopics }) => {
       })
     }
   }
+
+  useEffect(() => {
+    if (topics.length > 0) {
+      $('#table-main').DataTable();
+    }
+  }, [topics]);
+  
 
   useEffect(() => {
     if (topicId) {
@@ -63,7 +72,7 @@ const TopicIndex = ({ topics, updateTopics }) => {
 
   return (
     <>
-      <table className="table table-striped table-bordered productsTable">
+      <table id='table-main' className="table table-striped table-bordered border-dark">
         <thead className="table text-center bg-black">
           <tr>
             <th>ID</th>
@@ -97,7 +106,7 @@ const TopicIndex = ({ topics, updateTopics }) => {
         <Modal show={editModalOpen} onClose={() => setEditModalOpen(false)}>
           <Modal.Content>
             <div className="modal-container">
-              <table className="table">
+              <table id='table-main' className="table">
                 <tbody>
                   <tr>
                     <td>Title:</td>
