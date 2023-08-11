@@ -1,8 +1,11 @@
-import TopicContainer from "./Components/TopicContainer";
+import { BrowserRouter } from 'react-router-dom';
+import RoutesApp from './routes/Routes';
 
 function App() {
   return (
-    <TopicContainer></TopicContainer>
+    <BrowserRouter basename='/'>
+      <RoutesApp></RoutesApp>
+    </BrowserRouter>
   );
 };
 
