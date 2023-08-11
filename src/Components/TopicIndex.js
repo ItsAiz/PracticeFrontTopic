@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import 'bulma/css/bulma.min.css';
 import { Button, Container } from 'react-bulma-components';
 import topicService from '../Services/topicService';
@@ -59,11 +59,13 @@ const TopicIndex = () => {
     }
   }, [topics]);
 
+  const memoizedDeleteTopic = useCallback(deleteTopic, [topicId]);
+
   useEffect(() => {
     if (topicId) {
-      deleteTopic();
+      memoizedDeleteTopic();
     }
-  }, [deleteTopic, topicId]);
+  }, [topicId, memoizedDeleteTopic]);
 
   const handleEdit = (topic) => {
     setSelectedTopic(topic);
