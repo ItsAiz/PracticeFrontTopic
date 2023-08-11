@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'bulma/css/bulma.min.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import topicService from '../Services/topicService';
+import Nav from './Nav'
 import Swal from 'sweetalert2';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Container } from 'react-bulma-components';
@@ -89,6 +90,7 @@ const TopicCreate = ({ isUpdate, topicId, onModalClose, updateTopics }) => {
 
   return (
     <>
+    {!isUpdate && <Nav></Nav>}
     <Container>
       <form onSubmit={handleSubmit}>
         <div className='form-group'>

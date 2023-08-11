@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import 'datatables.net-dt/css/jquery.dataTables.css';
 import 'datatables.net';
 import TopicModal from './TopicModal';
+import Nav from './Nav'
 import { Link } from 'react-router-dom';
 const $ = require('jquery');
 
@@ -92,6 +93,7 @@ const TopicIndex = () => {
 
   return (
     <>
+    <Nav></Nav>
       <Container>
       <table id='table-main' className='table table-striped table-bordered border-dark'>
         <thead className='table text-center bg-black'>
