@@ -4,15 +4,15 @@ import 'bulma/css/bulma.min.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import topicService from '../Services/topicService';
 import Swal from 'sweetalert2';
-import { Link, useNavigate } from 'react-router-dom'; // Importa el hook para la navegación
+import { Link, useNavigate } from 'react-router-dom';
 import { Button, Container } from 'react-bulma-components';
 
-const TopicCreate = ({ isUpdate, topicId, onModalClose }) => {
+const TopicCreate = ({ isUpdate, topicId, onModalClose, updateTopics }) => {
   const [id, setId] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [creationDate, setCreationDate] = useState('');
-  const navigate = useNavigate(); // Hook de navegación
+  const navigate = useNavigate(); 
 
   const createNewTopic = async () => {
     try {
@@ -28,8 +28,7 @@ const TopicCreate = ({ isUpdate, topicId, onModalClose }) => {
         text: JSON.stringify(response.data.message),
         icon: 'success',
       });
-
-      navigate('/'); // Navegar de vuelta a la página principal después de crear un tema
+      navigate('/');
 
       setTitle('');
       setDescription('');
@@ -63,8 +62,8 @@ const TopicCreate = ({ isUpdate, topicId, onModalClose }) => {
         text: JSON.stringify(response.data.message),
         icon: 'success',
       });
-
-      navigate('/'); // Navegar de vuelta a la página principal después de actualizar un tema
+      updateTopics();
+      navigate('/');
 
       setId('');
       if (onModalClose) {
@@ -129,9 +128,9 @@ const TopicCreate = ({ isUpdate, topicId, onModalClose }) => {
         <br />
         <br />
       </form>
-      <Link to='/'>
+      {!isUpdate && <Link to='/'>
           <Button color='primary'>Volver a la Lista</Button>
-      </Link>
+        </Link>}
     </Container>
     </>
   );
